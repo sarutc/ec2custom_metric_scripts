@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-cat > mem.sh <<EOF
+sudo cat > /home/ec2-user/mem.sh <<EOF
 
 #!/usr/bin/bash
 INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
