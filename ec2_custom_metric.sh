@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 
+echo "1. install json query"
 sudo yum install -y jq
+
+echo "2. create mem.sh custom metric to put-metric-data to cloudwatch"
 sudo cat > /home/ec2-user/mem.sh <<EOF
 #!/usr/bin/bash
 INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
@@ -35,8 +38,10 @@ aws --region $REGION cloudwatch put-metric-data --metric-name IO_WAIT --dimensio
 
 EOF
 
+echo "3. chmod +x mem.sh"
 sudo chmod +x mem.sh
 
+echo "4. create crontab run mem.sh every minute"
 sudo crontab <<EOF
 * * * * * /home/ec2-user/mem.sh
 EOF
