@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
+sudo yum install -y jq
 sudo cat > /home/ec2-user/mem.sh <<EOF
-
 #!/usr/bin/bash
 INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 REGION=$(curl -s  http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
@@ -35,9 +35,7 @@ aws --region $REGION cloudwatch put-metric-data --metric-name IO_WAIT --dimensio
 
 EOF
 
-
 sudo chmod +x mem.sh
-sudo yum install -y jq
 
 sudo crontab <<EOF
 * * * * * /home/ec2-user/mem.sh
