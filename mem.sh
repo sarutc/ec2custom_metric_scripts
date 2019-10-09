@@ -9,7 +9,7 @@ TCP_CONN=$(netstat -an | wc -l)
 TCP_CONN_MYSQL_3306=$(netstat -an | grep :3306 | wc -l)
 TCP_CONN_HTTP_80=$(netstat -an | grep :80 | wc -l)
 TCP_CONN_HTTPS_443=$(netstat -an | grep :443 | wc -l)
-TCP_CONN_REDIS_6379=$(netstat -an | grep :6739 | wc -l)
+TCP_CONN_REDIS_6379=$(netstat -an | grep :6379 | wc -l)
 #USERS=$(uptime |awk '{ print $6 }')
 IO_WAIT=$(iostat | awk 'NR==4 {print $5}')
 
