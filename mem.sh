@@ -9,8 +9,13 @@ TCP_CONN=$(netstat -an | wc -l)
 TCP_CONN_MYSQL_3306=$(netstat -an | grep :3306 | wc -l)
 TCP_CONN_HTTP_80=$(netstat -an | grep :80 | wc -l)
 TCP_CONN_HTTPS_443=$(netstat -an | grep :443 | wc -l)
+TCP_CONN_REDIS_6379=$(netstat -an | grep :6739 | wc -l)
 #USERS=$(uptime |awk '{ print $6 }')
 IO_WAIT=$(iostat | awk 'NR==4 {print $5}')
+
+if [[ ${TCP_CONN_REDIS_6379}  -gt 0 ]]; then
+    aws --region $REGION cloudwatch put-metric-data --metric-name TCP_connection_REDIS_6379 --dimensions Instance=$INSTANCE_ID  --namespace "EC2-Custom" --value $TCP_CONN_REDIS_6379
+fi
 
 if [[ ${TCP_CONN_MYSQL_3306}  -gt 0 ]]; then
     aws --region $REGION cloudwatch put-metric-data --metric-name TCP_connection_MYSQL_3306 --dimensions Instance=$INSTANCE_ID  --namespace "EC2-Custom" --value $TCP_CONN_MYSQL_3306
